@@ -4,8 +4,13 @@ import numpy as np
 import pytest
 
 from aeon.transformations.collection.contrastive_based import TS2Vec
+from aeon.utils.validation._dependencies import _check_soft_dependencies
 
 
+@pytest.mark.skipif(
+    not _check_soft_dependencies("torch", severity="none"),
+    reason="skip test if required soft dependency torch not available",
+)
 @pytest.mark.parametrize("expected_feature_size", [3, 5, 10])
 @pytest.mark.parametrize("n_series", [1, 2, 5])
 @pytest.mark.parametrize("n_channels", [1, 2, 3])
